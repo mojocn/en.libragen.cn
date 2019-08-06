@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include header.html %}
+</head>
+<body>
+
+
+<div id="app" class="flex-row">
+
+
+    <!--侧边导航栏-->
+    <nav class="nav-side">
+        <a href="/" id="avatar" style="background-image:url({{ site.avatar }})" class="spinner-icon"></a>
+
+        <ul id="tags__ul" @mouseover="doSetPostList(true)" @mouseleave="doSetPostList(false)">
+            <li class="tags__li tags-btn" :class="clickedCate === '' ? 'active' : ''" @click="doChangeCate('')">All
+            </li>
+            <li class="tags__li tags-btn" :class="clickedCate === name ? 'active' : ''" v-for="(name,idx) in categories"
+                :key="idx" v-text="name" @click="doChangeCate(name)"></li>
+        </ul>
+
+        <div class="misc-icon">
+            <a href="mailto:{{ site.author.email }}" class="fa fa-id-card-o"></a>
+            <a href="https://github.com/libragen" class="fa fa-github"></a>
+            <a href="https://tech.mojotv.cn" class="fa fa-newspaper-o"></a>
+            <a href="https://www.mojotv.cn" class="fa fa-money"></a>
+        </div>
+    </nav> <!-- end #tags -->
+    <!--文章列表-->
+    <div class="posts-list" @mouseover="doSetPostList(true)"
+         v-if="!isMobile"
+         v-show="showPostList"
+         @mouseleave="doSetPostList(false)">
+        <form action="" id="search-form">
+            <input id="search-input" ref="search" type="text" placeholder="Search..." v-model.trim="search"
+                   autocomplete="off">
+        </form>
+        <section class="article-list">
+            <a :href="item.url" v-for="item in articles" :key="item.url" class="post-li-a"
+               @click.stop.prevent="doView(item)">
+                <span class="post-li-dot"></span>
+                <span class="post-li-title" v-text="item.title"></span>
+                <span class="post-li-time" v-text="humanTime(item.time)"></span>
+            </a>
+        </section>
+    </div> <!-- end #posts-list -->
+
+    <div class="main">
+
+
+        <article v-if="pjaxHtml === ''" class="article-body">
+            <!--===thisExplodePointPjax===-->
+            {{ content }}
+            <!--===thisExplodePointPjax===-->
+        </article>
+        <article v-if="pjaxHtml !== ''" v-html="pjaxHtml" class="article-body"></article>
+
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="{{site.ga_id}}"
+             data-ad-slot="5020784473"></ins>
+        {% include addons.html %}
+        {% include base_copyright.html %}
+
+
+    </div>
+
+    </section>
+    <!--markdwon 导航栏-->
+    <div id="article-index" v-if="isPostPage || !isMobile">
+        <div id="post__toc">
+            <span id="article-index-title">目录</span>
+            <ul id="article-index-ul"></ul>
+        </div>
+    </div>
+
+
+</div>
+<script src="/assets/js/vue.js"></script>
+<script src="/assets/js/vue-avatar.min.js"></script>
+<script src="/assets/js/element.js"></script>
+<script src="/assets/js/nprogress.js"></script>
+<script src="/assets/js/axios.min.js"></script>
+<script src="/assets/js/app.js"></script>
+<!-- Go to 评论 -->
+</body>
+</html>

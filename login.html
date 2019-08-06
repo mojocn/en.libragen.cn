@@ -1,0 +1,175 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login or Register</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/element.css">
+    <script>
+        var commentHost = "{{site.comment_api}}"
+        if (window.location.hostname.indexOf("127.0.") >= 0) {
+            commentHost = "http://127.0.0.1:2222"
+        }
+    </script>
+</head>
+<body>
+<div id="app" style="margin: 10% 20%">
+    <h2 v-text="isRegister ? '注册账号' :'登陆'" style="text-align: center;color:#ff5722;"></h2>
+    <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="邮箱" v-show="isRegister">
+            <el-input v-model="form.email"></el-input>
+        </el-form-item>
+        <el-form-item :label="isRegister ? '用户名' : '账号'">
+            <el-input v-model="form.username" :placeholder="isRegister ? '用户名' : '请输入用户名或者邮箱'"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+            <el-input v-model="form.password"></el-input>
+        </el-form-item>
+        <el-form-item label="重复密码" v-show="isRegister">
+            <el-input v-model="form.repassword"></el-input>
+        </el-form-item>
+        <el-form-item>
+
+            <el-button type="primary" @click="doLogin">登陆</el-button>
+            <el-button @click="doRegister">注册</el-button>
+
+        </el-form-item>
+    </el-form>
+</div>
+
+<script src="/assets/js/vue.js"></script>
+<script src="/assets/js/element.js"></script>
+<script src="/assets/js/nprogress.js"></script>
+<script src="/assets/js/axios.min.js"></script>
+
+<script>
+    // Add a request interceptor
+    axios.interceptors.request.use(function (config) {
+        // Do something before request is sent
+        NProgress.start();
+        return config;
+    }, function (error) {
+        NProgress.done();
+        // Do something with request error
+        return Promise.reject(error);
+    });
+
+    // Add a response interceptor
+    axios.interceptors.response.use(function (response) {
+        NProgress.done();
+        return response;
+    }, function (error) {
+        NProgress.done();
+        return Promise.reject(error);
+    });
+
+    var apiHttp = axios.create({
+        baseURL: commentHost,
+        timeout: 10000,
+    });
+    apiHttp.interceptors.response.use(function (response) {
+        // Do something with response data
+        NProgress.done();
+        if (response.status === 200 && response.data && !response.data.ok) {
+            //显示登陆页面
+            var msg = response.data.msg;
+            app.$notify.error("error: " + msg)
+            return null
+        }
+
+        return response.data;
+    }, function (error) {
+        NProgress.done();
+        if (error.response && error.response.status === 412) {
+            app.$notify.error("请登陆")
+            return
+        }
+        if (error.message) {
+            app.$notify.error(error.message)
+            return
+        }
+        return null;
+    });
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            isRegister: false,
+            form: {
+                username: '',
+                email: "",
+                password: "",
+                repassword: "",
+            },
+        },
+        computed: {
+            apiC: function () {
+                apiHttp.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("_k");
+                return apiHttp;
+            },
+            redirect: function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('re');
+            },
+        },
+
+        methods: {
+            doRegister: function () {
+                if (this.isRegister) {
+                    if (!this.form.username || !this.form.email || !this.form.password) {
+                        alert("用户名,密码,邮箱不能为空")
+                        return
+                    }
+
+                    if (this.form.password !== this.form.repassword) {
+                        alert("确认密码错误")
+                        return
+                    }//register
+                    var vm = this;
+                    this.apiC.post('api/register', this.form).then(function (res) {
+                        if (res.ok) {
+                            vm.isRegister = false;
+                            vm.$notify.success("注册成功,请登陆账号")
+                        }
+                    })
+                } else {
+                    this.$notify.info('欢迎注册一个账号')
+                    this.isRegister = true;
+                }
+            },
+            doLogin: function () {
+                var vm = this
+                if (!this.isRegister) {
+                    if (!this.form.username || !this.form.password) {
+                        alert("账号,邮箱不能为空")
+                        return
+                    }//login
+                    this.apiC.post('api/login', this.form).then(function (res) {
+                        var token = res.data.token;
+                        localStorage.setItem("_k", token)
+                        localStorage.setItem("uid", res.data.ID)
+                        localStorage.setItem("username", res.data.username)
+                        vm.$notify.success("登陆成功")
+                        vm.doJumpPage()
+                    })
+                } else {
+                    this.$notify.info('欢迎登陆');
+                    this.isRegister = false;
+                }
+
+            },
+            doJumpPage: function () {
+                if (this.redirect) {
+                    window.location.href = this.redirect
+                }
+            }
+
+        }
+    });
+</script>
+</body>
+</html>
+
+

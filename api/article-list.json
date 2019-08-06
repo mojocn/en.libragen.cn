@@ -1,0 +1,10 @@
+---
+layout: null
+---
+{
+"ok": true,
+"categories": [
+{% for category in site.categories %}"{{ category[0] }}"{% if forloop.last != true %}, {% endif %}{% endfor %}
+],
+"articles":[{% for post in site.posts %}{"cate": "{{ post.categories }}", "url": "{{ post.url }}", "title": "{{post.title }}", "time": "{{ post.date }}"}{% if forloop.last != true %}, {% endif %}{% endfor %}]
+}

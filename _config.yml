@@ -1,0 +1,68 @@
+permalink: /:year/:month/:day/:title
+markdown: kramdown
+highlighter: rouge
+mathjax: disabled
+sass:
+  style: compressed
+# 作者信息
+author:
+  name: Libragen Eric Zhou
+  email: dejavuzhou@qq.com
+  link: http://captcha.mojotv.cn
+  weibo: http://weibo.com/u/2706451481?is_all=1
+  github: http://github.com/dejavuzhou
+
+# 站点信息
+title: Libragen
+description: Libragen:most trusted Golang programming language skill sharing website
+url: https://libragen.cn
+rss_url: /pages/atom.xml
+comment_api: http://home.mojotv.cn:2222
+
+# avatar头像及Favicon
+avatar: /assets/image/libra_icon.jpg
+favicon: /assets/image/libra_icon.jpg
+logo: /assets/image/libra_icon.jpg
+s_bing: F71F639CAE579E63E44E43522ADED67F
+# Jekyll Plugin
+# https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
+plugins:
+
+# 定义你的分类
+categories: News Video Tech Finance
+
+# 排除文件夹
+exclude: [robot,util,config,tutorials,main.go,install.sh,jekyll.sh,Gemfile,Gemfile.lock,jekyll_run.sh, codebase,go.mod,go.sum,util]
+
+# 谷歌统计ID
+ga_id: UA-129013660-6
+
+# google adsense ID
+gad_id: ca-pub-8488823422266592
+
+webmaster_verifications:
+  google: 1234
+  bing: F71F639CAE579E63E44E43522ADED67F
+  alexa: 1234
+  yandex: 1234
+  baidu: bc3262cde0438adc9418251d9e63476b
+  360: 4f66b4f11f2ba5c4a48abf000c5e5cbd
+
+twitter:
+  username: LibraGen
+  card: summary
+
+facebook:
+  app_id: 1234
+  publisher: 1234
+  admins: 1234
+
+social:
+  name: Eric Zhou
+  links:
+    - https://twitter.com/neochau
+    - https://github.com/dejavuzhou
+    - https://github.com/mojocn
+    - https://github.com/JJJJJJJerk
+    - https://weibo.com/dejavuzhou/home
+    - http://captcha.mojotv.cn
