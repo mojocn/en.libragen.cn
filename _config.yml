@@ -17,8 +17,7 @@ title: Libragen
 description: Libragen:most trusted Golang programming language skill sharing website
 url: https://libragen.cn
 rss_url: /pages/atom.xml
-comment_api: http://home.mojotv.cn:2222
-
+comment_api: http://felix.mojotv.cn
 # avatar头像及Favicon
 avatar: /assets/image/libra_icon.jpg
 favicon: /assets/image/libra_icon.jpg
