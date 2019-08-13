@@ -312,23 +312,23 @@ var app = new Vue({
             var mm = day * 31;
             var fuzzy;
             if (delta < 30) {
-                fuzzy = '现在';
+                fuzzy = 'now';
             } else if (delta < minute) {
-                fuzzy = delta + ' 秒前';
+                fuzzy = delta + ' s ago';
             } else if (delta < 2 * minute) {
-                fuzzy = '一分钟前'
+                fuzzy = '1m ago'
             } else if (delta < hour) {
-                fuzzy = Math.floor(delta / minute) + '分钟前';
+                fuzzy = Math.floor(delta / minute) + ' m ago';
             } else if (Math.floor(delta / hour) == 1) {
-                fuzzy = '一小时前'
+                fuzzy = '1h ago'
             } else if (delta < day) {
-                fuzzy = Math.floor(delta / hour) + ' 小时前';
+                fuzzy = Math.floor(delta / hour) + ' h ago';
             } else if (delta < day * 2) {
-                fuzzy = '昨天';
+                fuzzy = 'yesterday';
             } else if (delta < week) {
-                fuzzy = Math.floor(delta / day) + ' 天前';
+                fuzzy = Math.floor(delta / day) + ' d ago';
             } else if (delta < mm) {
-                fuzzy = Math.floor(delta / week) + ' 周前';
+                fuzzy = Math.floor(delta / week) + ' w ago';
             } else {
                 fuzzy = date.toISOString().slice(2, 10).replace('T', ' ')
 
