@@ -34,7 +34,7 @@ categories: News Video Tech Finance
 exclude: [robot,util,config,tutorials,main.go,install.sh,jekyll.sh,Gemfile,Gemfile.lock,jekyll_run.sh, codebase,go.mod,go.sum,util]
 
 # 谷歌统计ID
-ga_id: UA-129013660-6
+ga_id: UA-129013660-7
 
 # google adsense ID
 gad_id: ca-pub-8488823422266592
