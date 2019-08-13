@@ -14,6 +14,9 @@
         <a class="fa fa-share-alt"
            href="https://www.evernote.com/clip.action?url={{ site.url | append: page.url | url_encode }}&title={{'『' | append: page.title | append: '』' | append: page.description | url_encode}}"
            target="_blank"></a>
+        <a class="fa fa-facebook"
+           href="javascript: void(window.open('//www.facebook.com/share.php?u='.concat(encodeURIComponent(location.href)) ));"
+           target="_blank"></a>
         <a class="fa fa-weibo"
            href="http://v.t.sina.com.cn/share/share.php?url={{ site.url | append: page.url | url_encode }}&title={{'『' | append: page.title | append: '』' | append: page.description | url_encode}}"
            target="_blank"></a>
