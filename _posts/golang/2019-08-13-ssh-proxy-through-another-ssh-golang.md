@@ -153,7 +153,6 @@ func (msa *LogicMachineSshAccount) ChangePassword() error {
 
 //RemoveSudo 
 func (msa *LogicMachineSshAccount) RemoveSudo() error {
-	//清楚 /etc/sudoers 文件中 用户名信息
 	cmd := fmt.Sprintf(`sudo sed -i '/^%s\b/d' /etc/sudoers`, msa.sshUser)
 	_, err := runCmd(cmd)
 	return err
@@ -161,7 +160,6 @@ func (msa *LogicMachineSshAccount) RemoveSudo() error {
 
 //RemoveSshAccountHard 
 func (msa *LogicMachineSshAccount) RemoveSshAccountHard() error {
-	//清楚 /etc/sudoers 文件中 用户名信息
 	cmd := fmt.Sprintf(`sudo userdel -r -f -Z '%s'`, msa.sshUser)
 	_, err := runCmd(cmd)
 	return err
