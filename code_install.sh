@@ -2,7 +2,7 @@
 
 #echo "开始发布新的主题";
 
-SOURCE='/d/code/libragen.cn';
+SOURCE='/d/code/en.libragen.cn';
 DEST='/d/code/tech.mojotv.cn'
 
 rm -rf $DEST/_includes;

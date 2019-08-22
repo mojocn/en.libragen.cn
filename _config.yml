@@ -26,7 +26,7 @@ s_bing: F71F639CAE579E63E44E43522ADED67F
 # Jekyll Plugin
 # https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
 plugins:
-
+lange: en-US
 # 定义你的分类
 categories: News Video Tech Finance
 
